@@ -77,7 +77,7 @@
 		 *
 		 * @constructor
 		 * @param Object obj - Settings
-		 * @return void
+		 * @return {object} $that - this
 		 */
 		self.init = function() {
 			var hash = window.location.hash.substr(1),
