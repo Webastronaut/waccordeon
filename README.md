@@ -38,6 +38,8 @@ Yet another accordeon plugin. Needs jQuery to work properly.
 
 You may have recognized that the accordeon headers have an id assigned to them, e.g. ```id="foo"```. Its purpose is to make the separate accordeon items accessable via URLs. The plugin will check if one of the items has the same id as the given URL hash and will open it.
 
+
+### Example invocation
 ```js
 $(function() {
 	$('.accordeon').waccordeon({
