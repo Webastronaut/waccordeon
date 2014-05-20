@@ -1,7 +1,7 @@
 waccordeon
 ==========
 
-Yet another accordeon plugin. Needs jQuery to work properly.
+Yet another accordeon plugin. Needs jQuery to work properly. Tested in IE8+, Chrome, Firefox.
 
 ## Usage
 
