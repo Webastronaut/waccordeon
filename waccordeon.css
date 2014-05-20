@@ -1,0 +1,43 @@
+.accordeon {
+	list-style:none;
+	margin:0;
+}
+
+.accordeon > li {
+	margin-bottom:10px;
+}
+
+.accordeon > li > section > h2, .accordeon > li > section > div {
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+}
+
+.accordeon > li > section > h2 {
+	cursor:pointer;
+	width:100%;
+	padding:10px;
+	margin:0;
+	border:solid 1px black;
+}
+
+.accordeon > li > section > h2:after {
+	content:'+';
+	float:right;
+}
+
+.accordeon > li > section > .active:after {
+	content:'-';
+}
+
+.accordeon > li > section > div {
+	display:none;
+	padding:0;
+	margin:0;
+}
+
+.accordeon > li > section > div > :first-child { margin-top:0; }
+
+.no-js .accordeon > li > section > div {
+	display:block;
+}
