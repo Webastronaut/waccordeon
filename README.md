@@ -6,6 +6,7 @@ Yet another accordeon plugin. Needs jQuery to work properly.
 ## Usage
 
 ### Example markup
+
 ```html
 <ul class="accordeon">
 	<li>
@@ -47,7 +48,7 @@ $(function() {
 ## Options
 
 | Option | Type | Default | Description |
-| -- | -- | -- | -- |
+| ------------- | ------------- | ------------- | ------------- |
 | ```$accordeonHeader``` | ```object``` | ```''``` | Represents the set of accordeon headers as jQuery object |
 | ```$accordeonContents``` | ```object``` | ```''``` | The set of accordeon content elements as jQuery object |
 | ```activeClass``` | ```string``` | ```active``` | The class to be assigned to the opened item |
