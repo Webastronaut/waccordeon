@@ -19,7 +19,8 @@
 				scrollSpeed: 200,
 				scrollOffset: 0,
 				initActive: 0,
-				openFirstItem: false
+				openFirstItem: false,
+				useCSS: true
 			},
 			_ = {};
 
@@ -42,9 +43,12 @@
 				_.closeAll();
 
 				$that.addClass(self.activeClass);
-				$that.next('div').stop(true, true).slideDown(self.animationDuration, function () {
-					_.moveToPosition.call($that);
-				});
+
+				if(!self.useCSS) {
+					$that.next('div').stop(true, true).slideDown(self.animationDuration, function () {
+						_.moveToPosition.call($that);
+					});
+				}
 			}
 		};
 
@@ -55,7 +59,9 @@
 		 */
 		_.closeAll = function () {
 			self.$accordeonHeader.removeClass(self.activeClass);
-			self.$accordeonContents.stop(true, true).slideUp(self.animationDuration);
+			if(!self.useCSS) {
+				self.$accordeonContents.stop(true, true).slideUp(self.animationDuration);
+			}
 		};
 
 		/** Scroll document to opened accordeon header
@@ -98,10 +104,16 @@
 			});
 
 			self.$accordeonHeader.on('click', _.showAccordeonContent);
-			self.$accordeonContents.hide();
+
+			if(!self.useCSS) {
+				self.$accordeonContents.hide();
+			}
 
 			if (self.openFirstItem || hashEqualId) {
-				self.$accordeonContents.eq(self.initActive).show()
+				self.$accordeonContents.eq(self.initActive).addClass(self.activeClass);
+				if(!self.useCSS) {
+					self.$accordeonContents.eq(self.initActive).show()
+				}
 			}
 
 			return self.$that;
