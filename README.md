@@ -61,3 +61,4 @@ $(function() {
 | ```scrollSpeed``` | ```int``` | ```200``` | The speed in which the document will scroll to the opened item |
 | ```initActive``` | ```int``` | ```0``` | The index of the opened item if ```openFirstItem``` option ist ```true``` |
 | ```openFirstItem``` | ```boolean``` | ```false``` | Set this to ```true``` if you want the first item to be opened on page load |
+| ```useCSS``` | ```boolean``` | ```true``` | Set this to ```false``` if you want to animate with JS |
