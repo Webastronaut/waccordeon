@@ -17,9 +17,10 @@
 				offsetToAccordeonHeader: 10,
 				animationDuration: 200,
 				scrollSpeed: 200,
-				scrollOffset: 0,
-				initActive: 0,
-				openFirstItem: false
+				preventScrollToPosition: false,
+				useCSS: true,
+				openFirstItem: false,
+				initActive: 0
 			},
 			_ = {};
 
@@ -42,9 +43,14 @@
 				_.closeAll();
 
 				$that.addClass(self.activeClass);
-				$that.next('div').stop(true, true).slideDown(self.animationDuration, function () {
+
+				if(!self.useCSS) {
+					$that.next('div').stop(true, true).slideDown(self.animationDuration, function () {
+						_.moveToPosition.call($that);
+					});
+				}else {
 					_.moveToPosition.call($that);
-				});
+				}
 			}
 		};
 
@@ -55,7 +61,9 @@
 		 */
 		_.closeAll = function () {
 			self.$accordeonHeader.removeClass(self.activeClass);
-			self.$accordeonContents.stop(true, true).slideUp(self.animationDuration);
+			if(!self.useCSS) {
+				self.$accordeonContents.stop(true, true).slideUp(self.animationDuration);
+			}
 		};
 
 		/** Scroll document to opened accordeon header
@@ -67,11 +75,13 @@
 		_.moveToPosition = function () {
 			var $that = $(this);
 
-			window.setTimeout(function () {
-				$('html, body').stop(true, true).animate({
-					scrollTop: ($that.offset().top - self.offsetToAccordeonHeader) - self.scrollOffset
-				}, self.scrollSpeed);
-			}, self.animationDuration);
+			if(!self.preventScrollToPosition) {
+				window.setTimeout(function () {
+					$('html, body').stop(true, true).animate({
+						scrollTop: $that.offset().top - self.offsetToAccordeonHeader
+					}, self.scrollSpeed);
+				}, self.animationDuration);
+			}
 		};
 
 		/** Initialize accordeon
@@ -82,7 +92,8 @@
 		 */
 		self.init = function () {
 			var hash = window.location.hash.substr(1),
-				hashEqualId = false;
+				hashEqualId = false,
+				activeAccordeonHeader;
 
 			if (options.length !== 0) {
 				$.extend(self, options);
@@ -98,10 +109,23 @@
 			});
 
 			self.$accordeonHeader.on('click', _.showAccordeonContent);
-			self.$accordeonContents.hide();
+
+			if(!self.useCSS) {
+				self.$accordeonContents.hide();
+			}
 
 			if (self.openFirstItem || hashEqualId) {
-				self.$accordeonContents.eq(self.initActive).show()
+				activeAccordeonHeader = self.$accordeonHeader.eq(self.initActive);
+
+				activeAccordeonHeader.addClass(self.activeClass);
+
+				if(!self.useCSS) {
+					self.$accordeonContents.eq(self.initActive).show(function() {
+						_.moveToPosition.call(activeAccordeonHeader);
+					});
+				}else {
+					_.moveToPosition.call(activeAccordeonHeader);
+				}
 			}
 
 			return self.$that;
