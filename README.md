@@ -59,6 +59,7 @@ $(function() {
 | ```offsetToAccordeonHeader``` | ```int``` | ```10``` | The offset to the header of the opened items' header after scrolling |
 | ```animationDuration``` | ```int``` | ```200``` | The duration of the slideup/-down animation |
 | ```scrollSpeed``` | ```int``` | ```200``` | The speed in which the document will scroll to the opened item |
-| ```initActive``` | ```int``` | ```0``` | The index of the opened item if ```openFirstItem``` option ist ```true``` |
-| ```openFirstItem``` | ```boolean``` | ```false``` | Set this to ```true``` if you want the first item to be opened on page load |
+| ```preventScrollToPosition``` | ```boolean``` | ```false``` | Set this to ```true``` if you want to scroll to position of $accordeonHeader |
 | ```useCSS``` | ```boolean``` | ```true``` | Set this to ```false``` if you want to animate with JS |
+| ```openFirstItem``` | ```boolean``` | ```false``` | Set this to ```true``` if you want the first item to be opened on page load |
+| ```initActive``` | ```int``` | ```0``` | The index of the opened item if ```openFirstItem``` option ist ```true``` |

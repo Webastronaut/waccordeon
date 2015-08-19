@@ -17,10 +17,10 @@
 				offsetToAccordeonHeader: 10,
 				animationDuration: 200,
 				scrollSpeed: 200,
-				scrollOffset: 0,
-				initActive: 0,
+				preventScrollToPosition: false,
+				useCSS: true,
 				openFirstItem: false,
-				useCSS: true
+				initActive: 0
 			},
 			_ = {};
 
@@ -48,6 +48,8 @@
 					$that.next('div').stop(true, true).slideDown(self.animationDuration, function () {
 						_.moveToPosition.call($that);
 					});
+				}else {
+					_.moveToPosition.call($that);
 				}
 			}
 		};
@@ -73,11 +75,13 @@
 		_.moveToPosition = function () {
 			var $that = $(this);
 
-			window.setTimeout(function () {
-				$('html, body').stop(true, true).animate({
-					scrollTop: ($that.offset().top - self.offsetToAccordeonHeader) - self.scrollOffset
-				}, self.scrollSpeed);
-			}, self.animationDuration);
+			if(!self.preventScrollToPosition) {
+				window.setTimeout(function () {
+					$('html, body').stop(true, true).animate({
+						scrollTop: $that.offset().top - self.offsetToAccordeonHeader
+					}, self.scrollSpeed);
+				}, self.animationDuration);
+			}
 		};
 
 		/** Initialize accordeon
@@ -88,7 +92,8 @@
 		 */
 		self.init = function () {
 			var hash = window.location.hash.substr(1),
-				hashEqualId = false;
+				hashEqualId = false,
+				activeAccordeonHeader;
 
 			if (options.length !== 0) {
 				$.extend(self, options);
@@ -110,9 +115,16 @@
 			}
 
 			if (self.openFirstItem || hashEqualId) {
-				self.$accordeonContents.eq(self.initActive).addClass(self.activeClass);
+				activeAccordeonHeader = self.$accordeonHeader.eq(self.initActive);
+
+				activeAccordeonHeader.addClass(self.activeClass);
+
 				if(!self.useCSS) {
-					self.$accordeonContents.eq(self.initActive).show()
+					self.$accordeonContents.eq(self.initActive).show(function() {
+						_.moveToPosition.call(activeAccordeonHeader);
+					});
+				}else {
+					_.moveToPosition.call(activeAccordeonHeader);
 				}
 			}
 
